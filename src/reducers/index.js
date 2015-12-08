@@ -1,10 +1,10 @@
 import { ADD_TODO, MARK_TODO_DONE } from '../actions'
 
 const initialState = {
-    todos: []
+    todos: [{ text: 'todo1', done: true }, { text: 'to do 2', done: false }]
 }
 
-function todoApp(state = initialState, action) {
+export default function todoApp(state = initialState, action) {
     switch (action.type) {
         case ADD_TODO:
             return Object.assign({}, state, {
@@ -19,8 +19,8 @@ function todoApp(state = initialState, action) {
 
         case MARK_TODO_DONE:
             return Object.assign({}, state, {
-                todos: todos.map((e, i) => {
-                    i == action.index ? Object.assign({}, e, { done: true }) : e
+                todos: state.todos.map((e, i) => {
+                    return (i == action.index ? Object.assign({}, e, { done: !e.done }) : e)
                 })
             })
 
